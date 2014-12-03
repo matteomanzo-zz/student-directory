@@ -16,3 +16,6 @@ puts "Chris"
 puts "Ptolemy"
 puts "Luke"
 puts "Danielle"
+print "Overall we have "
+print 16
+puts " great students"
