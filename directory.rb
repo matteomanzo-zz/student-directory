@@ -4,7 +4,7 @@ end
 
 def print_names(students)
   students.each_with_index do |student, i|
-  	if student[:name][0] == "X"
+  	if student[:name].length < 12
   	print "#{i + 1}. #{student[:name].capitalize} (#{student[:cohort].capitalize} cohort)\n"
     end
   end
