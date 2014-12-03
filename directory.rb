@@ -5,7 +5,7 @@ end
 def print_names(students)
 	i = 0
 	while i < students.length
-  	print "#{i + 1}. #{students[i][:name].capitalize} (#{students[i][:cohort].capitalize} cohort)\n"
+  	print "#{i + 1}. #{students[i][:name].capitalize}, #{students[i][:country].capitalize}. Hobbies: #{students[i][:hobbies].capitalize} (#{students[i][:cohort].capitalize} cohort)\n"
   	i += 1
     end
 end
@@ -22,10 +22,15 @@ def input_students
 	name = gets.chomp
 	# while the name is not empty, repeat this code
 	while !name.empty? do
+		puts "Where do you come from?"
+		country = gets.chomp
+		puts "What hobbies do you have?"
+		hobbies = gets.chomp
 		# store the student hash into the array
-		students << {:name => name, :cohort => :december}
+		students << {:name => name, :cohort => :december, :country => country, :hobbies => hobbies}
 		print "Now we have #{students.length} students\n"
 		# get the next name from the user
+		puts "What's your name?"
 		name = gets.chomp
 	end
 	# return the array of the students
