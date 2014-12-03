@@ -3,11 +3,11 @@ def print_header
 end
 
 def print_names(students)
-  students.each_with_index do |student, i|
-  	if student[:name].length < 12
-  	print "#{i + 1}. #{student[:name].capitalize} (#{student[:cohort].capitalize} cohort)\n"
+	i = 0
+	while i < students.length
+  	print "#{i + 1}. #{students[i][:name].capitalize} (#{students[i][:cohort].capitalize} cohort)\n"
+  	i += 1
     end
-  end
 end
 
 def print_footer(names)
