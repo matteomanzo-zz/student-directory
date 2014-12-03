@@ -3,8 +3,8 @@ def print_header
 end
 
 def print_names(students)
-  students.each do |student|
-  	print "#{student[:name].capitalize} (#{student[:cohort].capitalize} cohort)\n"
+  students.each_with_index do |student, i|
+  	print "#{i + 1}. #{student[:name].capitalize} (#{student[:cohort].capitalize} cohort)\n"
   end
 end
 
