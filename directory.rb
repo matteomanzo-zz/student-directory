@@ -22,23 +22,23 @@ def input_students
 	# create an empty array
 	students = []
 	# get the name
-	name = gets.chomp
+	name = gets.chop
 	# while the name is not empty, repeat this code
 	while !name.empty? do
 		puts ("Where do you come from?".center(@lineWidth))
-		country = gets.chomp
+		country = gets.chop
 		if country == ''
 			country = 'somewhere'
 		else country
 		end
 		puts ("What hobbies do you have?".center(@lineWidth))
-		hobbies = gets.chomp
+		hobbies = gets.chop
 		if hobbies == ''
 			hobbies = 'none'
 		else hobbies
 		end
 		puts ("Wich cohort will you join?".center(@lineWidth))
-		cohort = gets.chomp
+		cohort = gets.chop
 		if cohort == ''
 			cohort = 'december'
 		else cohort
@@ -54,7 +54,7 @@ def input_students
 		end
 		# get the next name from the user
 		puts ("What's your name?".center(@lineWidth))
-		name = gets.chomp
+		name = gets.chop
 	end
 	# return the array of the students
 	students
