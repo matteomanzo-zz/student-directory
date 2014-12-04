@@ -45,8 +45,13 @@ def input_students
 		end
 		# store the student hash into the array
 		students << {:name => name, :cohort => cohort.to_sym, :country => country, :hobbies => hobbies}
+		if students.length == 1
+			puts ('Now we have 1 student'.center(@lineWidth))
+			puts ''
+		else
 		puts ("Now we have #{students.length} students".center(@lineWidth))
 		puts ''
+		end
 		# get the next name from the user
 		puts ("What's your name?".center(@lineWidth))
 		name = gets.chomp
