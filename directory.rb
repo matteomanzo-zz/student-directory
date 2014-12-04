@@ -71,9 +71,30 @@ def list_no_list
 	end
 end
 
+def interactive_menu
+   @students = []
+   loop do
+	# 1. Print the menu and ask the user what to do
+	puts "1. Input the students"
+	puts "2. Show the students"
+	puts "9. Exit"
+	# 2. Save the input into a variable
+	selection = gets.chomp
+	# 3. Do what user asked for
+	case selection
+      when "1"
+      	input_students
+      when "2"
+      	list_no_list
+      when "9"
+      	exit # this will close the program
+      else
+      	puts 'I don\'t know what you meant, try again'
+      end
+	end		
+end
 
-students = input_students
 
-list_no_list
+interactive_menu
 
 
