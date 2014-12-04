@@ -6,8 +6,8 @@ end
 
 def print_names(students)
 	i = 0
-	while i < students.length
-		puts ("#{i + 1}. #{students[i][:name].capitalize}, #{students[i][:country].capitalize}. Hobbies: #{students[i][:hobbies].capitalize} (#{students[i][:cohort]} cohort)".center(@lineWidth))
+	while i < @students.length
+		puts ("#{i + 1}. #{@students[i][:name].capitalize}, #{@students[i][:country].capitalize}. Hobbies: #{@students[i][:hobbies].capitalize} (#{@students[i][:cohort]} cohort)".center(@lineWidth))
 		i += 1
     end
 end
@@ -17,10 +17,11 @@ def print_footer(names)
 end
 
 def input_students
+	puts ''
 	puts ("Please enter the names of the students".center(@lineWidth))
 	puts ("To finish, just hit return twice".center(@lineWidth))
 	# create an empty array
-	students = []
+	@students = []
 	# get the name
 	name = gets.chop
 	# while the name is not empty, repeat this code
@@ -44,12 +45,12 @@ def input_students
 		else cohort
 		end
 		# store the student hash into the array
-		students << {:name => name, :cohort => cohort.to_sym, :country => country, :hobbies => hobbies}
-		if students.length == 1
+		@students << {:name => name, :cohort => cohort.to_sym, :country => country, :hobbies => hobbies}
+		if @students.length == 1
 			puts ('Now we have 1 student'.center(@lineWidth))
 			puts ''
 		else
-		puts ("Now we have #{students.length} students".center(@lineWidth))
+		puts ("Now we have #{@students.length} students".center(@lineWidth))
 		puts ''
 		end
 		# get the next name from the user
@@ -57,10 +58,22 @@ def input_students
 		name = gets.chop
 	end
 	# return the array of the students
-	students
+	@students
 end
 
+def list_no_list
+	if  @students.length > 0
+		print_header
+		print_names(@students)
+		print_footer(@students)
+	else
+		puts ('No students have been added.'.center(@lineWidth))
+	end
+end
+
+
 students = input_students
-print_header
-print_names(students)
-print_footer(students)
+
+list_no_list
+
+
