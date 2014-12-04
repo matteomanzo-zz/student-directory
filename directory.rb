@@ -1,10 +1,11 @@
+@students = []
 @lineWidth = 50
 def print_header
   puts ("The students of my cohort at Makers Academy".center(@lineWidth))
   puts ("-------------".center(@lineWidth))
 end
 
-def print_names(students)
+def print_list
 	i = 0
 	while i < @students.length
 		puts ("#{i + 1}. #{@students[i][:name].capitalize}, #{@students[i][:country].capitalize}. Hobbies: #{@students[i][:hobbies].capitalize} (#{@students[i][:cohort]} cohort)".center(@lineWidth))
@@ -12,16 +13,14 @@ def print_names(students)
     end
 end
 
-def print_footer(names)
-	puts ("Overall we have #{names.length} great students".center(@lineWidth))
+def print_footer
+	puts ("Overall we have #{@students.length} great students".center(@lineWidth))
 end
 
 def input_students
 	puts ''
 	puts ("Please enter the names of the students".center(@lineWidth))
 	puts ("To finish, just hit return twice".center(@lineWidth))
-	# create an empty array
-	@students = []
 	# get the name
 	name = gets.chop
 	# while the name is not empty, repeat this code
@@ -57,30 +56,31 @@ def input_students
 		puts ("What's your name?".center(@lineWidth))
 		name = gets.chop
 	end
-	# return the array of the students
-	@students
 end
 
 def list_no_list
 	if  @students.length > 0
 		print_header
-		print_names(@students)
-		print_footer(@students)
+		print_list
+		print_footer
 	else
 		puts ('No students have been added.'.center(@lineWidth))
 	end
 end
-
 def interactive_menu
-   @students = []
    loop do
-	# 1. Print the menu and ask the user what to do
+	print_menu
+	process(gets.chomp)
+	end		
+end
+
+def print_menu
 	puts "1. Input the students"
 	puts "2. Show the students"
 	puts "9. Exit"
-	# 2. Save the input into a variable
-	selection = gets.chomp
-	# 3. Do what user asked for
+end
+
+def process(selection)
 	case selection
       when "1"
       	input_students
@@ -90,8 +90,7 @@ def interactive_menu
       	exit # this will close the program
       else
       	puts 'I don\'t know what you meant, try again'
-      end
-	end		
+    end
 end
 
 
