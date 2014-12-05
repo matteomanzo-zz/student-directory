@@ -23,25 +23,25 @@ def input_students
 	puts ("Please enter the names of the students".center(@lineWidth))
 	puts ("To finish, just hit return twice".center(@lineWidth))
 	# get the name
-	name = gets.chop
+	name = STDIN.gets.chop
 	# while the name is not empty, repeat this code
 	while !name.empty? do
 
 		puts ("Where do you come from?".center(@lineWidth))
-		country = gets.chop
+		country = STDIN.gets.chop
 		if country == '' then country = 'somewhere' end
 	
 		puts ("What hobbies do you have?".center(@lineWidth))
-		hobbies = gets.chop
+		hobbies = STDIN.gets.chop
 		if hobbies == '' then hobbies = 'none' end
 	
 		puts ("Wich cohort will you join?".center(@lineWidth))
-		cohort = gets.chop
+		cohort = STDIN.gets.chop
 		if cohort == '' then cohort = 'december' end
 
-		# store the student hash into the array
-		@students << {:name => name, :cohort => cohort.to_sym, :country => country, :hobbies => hobbies}
-
+		# add the student hash into the array
+		add_student(name, cohort, country, hobbies)
+		
 		if @students.length == 1
 			puts ('Now we have 1 student'.center(@lineWidth))
 			puts ''
@@ -52,7 +52,7 @@ def input_students
 
 		# get the next name from the user
 		puts ("What's your name?".center(@lineWidth))
-		name = gets.chop
+		name = STDIN.gets.chop
 	end
 end
 
@@ -64,6 +64,10 @@ def list_no_list
 	else
 		puts ('No students have been added.'.center(@lineWidth))
 	end
+end
+
+def add_student(name, cohort, country, hobbies)
+	@students << {:name => name, :cohort => cohort.to_sym, :country => country, :hobbies => hobbies}
 end
 
 def save_students
@@ -78,14 +82,27 @@ def save_students
 	file.close
 end
 
-def load_students
-	file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+	file = File.open(filename, "r")
 	file.readlines.each do |line|
 		name, cohort, country, hobbies = line.chomp.split(',')
-		@students << {:name => name, :cohort => cohort.to_sym, :country => country, :hobbies => hobbies}
+		add_student(name, cohort, country, hobbies)
 	end
 	file.close
 end
+
+def try_load_students
+	filename = ARGV.first # first argument from the command-line
+	return if filename.nil? # exit the method if it isn't given
+	if File.exists?(filename) # if it exists
+		load_students(filename)
+		puts "Loaded #{@students.length} from #{filename}"
+	else # if it doesn't exist
+		puts "Sorry, #{filename} doesn't exist."
+		exit # quit the program 
+	end
+end
+	
 
 def print_menu
 	puts "1. Input the students"
@@ -115,10 +132,11 @@ end
 def interactive_menu
 	loop do
 		print_menu
-		process(gets.chomp)
+		process(STDIN.gets.chomp)
 	end		
 end
 
+try_load_students
 interactive_menu
 
 
