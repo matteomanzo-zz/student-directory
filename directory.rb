@@ -1,8 +1,9 @@
 @students = []
 @lineWidth = 50
+
 def print_header
-  puts ("The students of my cohort at Makers Academy".center(@lineWidth))
-  puts ("-------------".center(@lineWidth))
+	puts ("The students of my cohort at Makers Academy".center(@lineWidth))
+	puts ("-------------".center(@lineWidth))
 end
 
 def print_list
@@ -10,7 +11,7 @@ def print_list
 	while i < @students.length
 		puts ("#{i + 1}. #{@students[i][:name].capitalize}, #{@students[i][:country].capitalize}. Hobbies: #{@students[i][:hobbies].capitalize} (#{@students[i][:cohort]} cohort)".center(@lineWidth))
 		i += 1
-    end
+	end
 end
 
 def print_footer
@@ -25,33 +26,30 @@ def input_students
 	name = gets.chop
 	# while the name is not empty, repeat this code
 	while !name.empty? do
+
 		puts ("Where do you come from?".center(@lineWidth))
 		country = gets.chop
-		if country == ''
-			country = 'somewhere'
-		else country
-		end
+		if country == '' then country = 'somewhere' end
+	
 		puts ("What hobbies do you have?".center(@lineWidth))
 		hobbies = gets.chop
-		if hobbies == ''
-			hobbies = 'none'
-		else hobbies
-		end
+		if hobbies == '' then hobbies = 'none' end
+	
 		puts ("Wich cohort will you join?".center(@lineWidth))
 		cohort = gets.chop
-		if cohort == ''
-			cohort = 'december'
-		else cohort
-		end
+		if cohort == '' then cohort = 'december' end
+
 		# store the student hash into the array
 		@students << {:name => name, :cohort => cohort.to_sym, :country => country, :hobbies => hobbies}
+
 		if @students.length == 1
 			puts ('Now we have 1 student'.center(@lineWidth))
 			puts ''
 		else
-		puts ("Now we have #{@students.length} students".center(@lineWidth))
-		puts ''
+			puts ("Now we have #{@students.length} students".center(@lineWidth))
+			puts ''
 		end
+
 		# get the next name from the user
 		puts ("What's your name?".center(@lineWidth))
 		name = gets.chop
@@ -73,9 +71,18 @@ def save_students
 	file = File.open("students.csv", "w")
 	# iterate over the array of students
 	@students.each do |student|
-		student_data = [student[:name], student[:cohort]]
+		student_data = [student[:name].capitalize!, student[:cohort], student[:country].capitalize!, student[:hobbies].capitalize!]
 		csv_line = student_data.join(",")
 		file.puts csv_line
+	end
+	file.close
+end
+
+def load_students
+	file = File.open("students.csv", "r")
+	file.readlines.each do |line|
+		name, cohort, country, hobbies = line.chomp.split(',')
+		@students << {:name => name, :cohort => cohort.to_sym, :country => country, :hobbies => hobbies}
 	end
 	file.close
 end
@@ -84,6 +91,7 @@ def print_menu
 	puts "1. Input the students"
 	puts "2. Show the students"
 	puts "3. Save the list to students.csv"
+	puts "4. Load the list from students.csv"
 	puts "9. Exit"
 end
 
@@ -95,6 +103,8 @@ def process(selection)
       	list_no_list
       when "3"
       	save_students
+      when "4"
+      	load_students
       when "9"
       	exit # this will close the program
       else
@@ -103,9 +113,9 @@ def process(selection)
 end
 
 def interactive_menu
-   loop do
-	print_menu
-	process(gets.chomp)
+	loop do
+		print_menu
+		process(gets.chomp)
 	end		
 end
 
